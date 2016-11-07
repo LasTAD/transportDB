@@ -1,24 +1,31 @@
-package leti.asd.db;
+package leti.asd.db.db_list;
 
 /**
  * Created by nikolaikobyzev on 15.10.16.
  */
-public class DBrecord implements Comparable{
-    private String full_name;
+public class DBrecord {
+    private String fullName;
     private int level;
     private int years_work;
     private int salary;
 
-    public int compareTo(Object o) {
-        return 0;
+    public DBrecord() {
+
     }
 
-    public String getFull_name() {
-        return full_name;
+    public DBrecord(String fullName, int level, int years_work, int salary) {
+        this.fullName = fullName;
+        this.level = level;
+        this.years_work = years_work;
+        this.salary = salary;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public int getLevel() {

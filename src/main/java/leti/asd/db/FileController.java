@@ -1,4 +1,7 @@
-package leti.asd.db.db_list;
+package leti.asd.db;
+
+import leti.asd.db.db_list.DBrecord;
+import leti.asd.db.db_list.ListDB;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -38,7 +41,7 @@ public class FileController {
         in.close();
     }
 
-    public static void loadFromtextFile(ListDB listDB, String name) throws IOException {
+    public static void loadFromTextFile(ListDB listDB, String name) throws IOException {
         List<String> lines = Files.readAllLines(new File(name).toPath());
         for(String line : lines) {
             String[] data = line.split("\\|");

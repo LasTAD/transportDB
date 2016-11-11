@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by nikolaikobyzev on 15.10.16.
  */
-public class ListDB<DBrecord> extends ArrayList<DBrecord>{
+public class ListDB extends ArrayList<DBrecord>{
 
     @Override
     public void sort(Comparator<? super DBrecord> c) {

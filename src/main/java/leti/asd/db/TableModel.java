@@ -1,4 +1,6 @@
-package leti.asd.db.db_list;
+package leti.asd.db;
+
+import leti.asd.db.db_list.ListDB;
 
 import javax.swing.table.AbstractTableModel;
 

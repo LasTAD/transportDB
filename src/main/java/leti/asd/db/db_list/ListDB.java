@@ -12,4 +12,79 @@ public class ListDB extends ArrayList<DBrecord>{
         //TODO сортировка вставкой
     }
 
+    public int searchRec(Object value, DBRecordField field){
+        switch(field){
+            case LEVEL:
+                return searchWrap((int)value, DBRecordField.LEVEL);
+            case YEARS_WORK:
+                return searchWrap((int)value, DBRecordField.YEARS_WORK);
+            case SALARY:
+                return searchWrap((int)value, DBRecordField.SALARY);
+        }
+        return -1;
+    }
+
+    private  int searchWrap(int key, DBRecordField field){
+        if (this.size() == 0)
+            return -1;
+
+        boolean descendingOrder = this.get(0).getLevel() > this.get(this.size()-1).getLevel();
+        return search(descendingOrder, key, 0, this.size(), field);
+    }
+
+    private  int search(boolean descendingOrder, int key, int left, int right, DBRecordField field) {
+        int mid = left + (right - left) / 2;
+
+        if (left >= right)
+            return -(1 + left);
+
+        if (this.get(left).getLevel() == key)
+            return left;
+
+        switch (field) {
+            case LEVEL:
+                if (this.get(left).getLevel() == key)
+                    return left;
+
+                if (this.get(mid).getLevel() == key) {
+                    if (mid == left + 1)
+                        return mid;
+                    else
+                        return search(descendingOrder, key, left, mid + 1, field);
+                } else if ((this.get(mid).getLevel() > key) ^ descendingOrder)
+                    return search(descendingOrder, key, left, mid, field);
+                else
+                    return search(descendingOrder, key, mid + 1, right, field);
+            case YEARS_WORK:
+                if (this.get(left).getYears_work() == key)
+                    return left;
+
+                if (this.get(mid).getYears_work() == key) {
+                    if (mid == left + 1)
+                        return mid;
+                    else
+                        return search(descendingOrder, key, left, mid + 1, field);
+                } else if ((this.get(mid).getYears_work() > key) ^ descendingOrder)
+                    return search(descendingOrder, key, left, mid, field);
+                else
+                    return search(descendingOrder, key, mid + 1, right, field);
+            case SALARY:
+                if (this.get(left).getSalary() == key)
+                    return left;
+
+                if (this.get(mid).getSalary() == key) {
+                    if (mid == left + 1)
+                        return mid;
+                    else
+                        return search(descendingOrder, key, left, mid + 1, field);
+                } else if ((this.get(mid).getSalary() > key) ^ descendingOrder)
+                    return search(descendingOrder, key, left, mid, field);
+                else
+                    return search(descendingOrder, key, mid + 1, right, field);
+                
+            case FULLNAME:
+                //// TODO: 11.11.16 сделать поиск по имени
+        }
+        return -1;
+    }
 }

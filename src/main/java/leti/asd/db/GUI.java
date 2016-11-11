@@ -3,7 +3,6 @@ package leti.asd.db;
 import leti.asd.db.db_list.DBRecordField;
 import leti.asd.db.db_list.DBrecord;
 import leti.asd.db.db_list.ListDB;
-import leti.asd.db.db_list.TableModel;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -50,7 +49,6 @@ public class GUI extends JFrame {
         });
         initListDB();
         initComponents();
-        // TODO дописать GUI
     }
 
     private void initListDB() {
@@ -189,12 +187,12 @@ public class GUI extends JFrame {
                     case 3: DBRecordFieldSearch = DBRecordField.SALARY; break;
                 }
 
-                valueSearch = DBRecordFieldSearch; // == DBRecordField.LEVEL ? Integer.parseInt(textField1.getText()) : textField1.getText();
-                if(valueSearch == DBRecordField.LEVEL || valueSearch == DBRecordField.YEARS_WORK || valueSearch == DBRecordField.SALARY)
-                    Integer.parseInt(textField1.getText());
-                else textField1.getText();
+                //valueSearch = DBRecordFieldSearch; // == DBRecordField.LEVEL ? Integer.parseInt(textField1.getText()) : textField1.getText();
+                if(DBRecordFieldSearch == DBRecordField.LEVEL || DBRecordFieldSearch == DBRecordField.YEARS_WORK || DBRecordFieldSearch == DBRecordField.SALARY)
+                    valueSearch = Integer.parseInt(textField1.getText());
+                else valueSearch = textField1.getText();
                 try {
-                    //indexSearch = listDB.search(valueSearch, bookFieldSearch, 0);
+                    indexSearch = listDB.searchRec(valueSearch, DBRecordFieldSearch);
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(this, "Неверный ввод числа!", "Ошибка ввода", JOptionPane.ERROR_MESSAGE);
                     continue;

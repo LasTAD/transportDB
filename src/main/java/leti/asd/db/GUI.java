@@ -142,7 +142,7 @@ public class GUI extends JFrame {
     }
 
     private void searchNextClick() {
-        //indexSearch = listDB.search(valueSearch, bookFieldSearch, indexSearch+1);
+        indexSearch = listDB.searchRec(valueSearch, DBRecordFieldSearch);
         if (indexSearch == -1) {
             JOptionPane.showMessageDialog(this, "Поиск завершен!", "Результаты поиска", JOptionPane.INFORMATION_MESSAGE);
             buttonSearchNext.setEnabled(false);
@@ -158,6 +158,7 @@ public class GUI extends JFrame {
         paneLayout.setAutoCreateGaps(true);
         paneLayout.setAutoCreateContainerGaps(true);
 
+        JLabel warning1 = new JLabel("<html>Перед поиском необходимо<br>отсортировать соответствующий столбец</html>");
         JComboBox comboBox1 = new JComboBox(new Object[] { "ФИО", "Разряд", "Стаж", "Зарплата"});
         JTextField textField1 = new JTextField();
 
@@ -165,12 +166,14 @@ public class GUI extends JFrame {
                 paneLayout.createParallelGroup()
                         .addComponent(comboBox1)
                         .addComponent(textField1)
+                        .addComponent(warning1)
         );
 
         paneLayout.setVerticalGroup(
                 paneLayout.createSequentialGroup()
                         .addComponent(comboBox1)
                         .addComponent(textField1)
+                        .addComponent(warning1)
         );
 
         while (true) {

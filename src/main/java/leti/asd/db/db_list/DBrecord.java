@@ -51,4 +51,6 @@ public class DBrecord {
     public void setSalary(int salary) {
         this.salary = salary;
     }
+
+
 }

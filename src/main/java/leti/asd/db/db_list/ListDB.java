@@ -118,10 +118,10 @@ public class ListDB extends ArrayList<DBrecord>{
         if (key.equals(this.get(left).getFullName()))
             return left;
 
-        if (this.get(left).getFullName() == key)
+        if (Objects.equals(this.get(left).getFullName(), key))
             return left;
 
-        if (this.get(mid).getFullName() == key) {
+        if (Objects.equals(this.get(mid).getFullName(), key)) {
             if (mid == left + 1)
                 return mid;
             else

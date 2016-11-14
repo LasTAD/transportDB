@@ -1,6 +1,7 @@
 package leti.asd.db.db_list;
 
 /**
+ * Project transportDB
  * Created by nikolaikobyzev on 15.10.16.
  */
 public class DBrecord {

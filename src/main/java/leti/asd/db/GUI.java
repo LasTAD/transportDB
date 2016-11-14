@@ -16,17 +16,17 @@ import java.io.IOException;
 
 
 /**
+ * Project transportDB
  * Created by nikolaikobyzev on 14.10.16.
  */
 
-public class GUI extends JFrame {
+class GUI extends JFrame {
     private static final Dimension WINDOW_SIZE = new Dimension(800,600);
 
-    private JPanel root;
-    private JScrollPane tableScrollPane;
     private JTable table;
-    private JButton buttonAdd, buttonRemove, buttonEdit, buttonSearch, buttonAddFile, buttonSearchNext;
-    private GroupLayout layout;
+    private JButton buttonRemove;
+    private JButton buttonEdit;
+    private JButton buttonSearchNext;
     private ListDB listDB;
 
     private DBRecordField DBRecordFieldSearch;
@@ -57,8 +57,8 @@ public class GUI extends JFrame {
     }
 
     private void initComponents() {
-        root = new JPanel();
-        layout = new GroupLayout(root);
+        JPanel root = new JPanel();
+        GroupLayout layout = new GroupLayout(root);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
         root.setLayout(layout);
@@ -98,9 +98,9 @@ public class GUI extends JFrame {
                 }
             }
         });
-        tableScrollPane = new JScrollPane(table);
+        JScrollPane tableScrollPane = new JScrollPane(table);
 
-       buttonAdd = new JButton("Добавить");
+        JButton buttonAdd = new JButton("Добавить");
         buttonAdd.addActionListener(e -> addClick());
         buttonEdit = new JButton("Изменить");
         buttonEdit.addActionListener(e -> editClick());
@@ -108,9 +108,9 @@ public class GUI extends JFrame {
         buttonRemove = new JButton("Удалить");
         buttonRemove.addActionListener(e -> removeClick());
         buttonRemove.setEnabled(false);
-        buttonSearch = new JButton("Поиск");
+        JButton buttonSearch = new JButton("Поиск");
         buttonSearch.addActionListener(e -> searchClick());
-        buttonAddFile = new JButton("Добавить из файла");
+        JButton buttonAddFile = new JButton("Добавить из файла");
         buttonAddFile.addActionListener(e -> addFileClick());
         buttonSearchNext = new JButton("Искать далее");
         buttonSearchNext.setEnabled(false);
@@ -415,7 +415,7 @@ public class GUI extends JFrame {
 
     private void save() {
         try{
-            FileController.saveToFile(listDB, "transportDB");
+            FileController.saveToFile(listDB);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this,"Не удалось сохранить изменения в файл!", "Ошибка", JOptionPane.ERROR_MESSAGE);
         }
@@ -423,7 +423,7 @@ public class GUI extends JFrame {
 
     private void load() {
         try {
-            FileController.loadFromFile(listDB, "/Users/nikolaikobyzev/Documents/Для учебы/Курсовые проекты/АиСД/transportDB/transportDB");
+            FileController.loadFromFile(listDB);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this,"Не удалось загрузить данные из файла!", "Ошибка", JOptionPane.ERROR_MESSAGE);
         }

@@ -8,12 +8,13 @@ import java.nio.file.Files;
 import java.util.List;
 
 /**
+ * Project transportDB
  * Created by nikolaikobyzev on 07.11.16.
  */
-public class FileController {
+class FileController {
 
-    public static void saveToFile(ListDB listDB, String name) throws IOException {
-        FileOutputStream fileOut = new FileOutputStream(name);
+    public static void saveToFile(ListDB listDB) throws IOException {
+        FileOutputStream fileOut = new FileOutputStream("transportDB");
         DataOutputStream out = new DataOutputStream(fileOut);
         out.writeInt(listDB.size());
         for(DBrecord rec : listDB) {
@@ -25,8 +26,8 @@ public class FileController {
         out.close();
     }
 
-    public static void loadFromFile(ListDB listDB, String name) throws IOException {
-        FileInputStream fileIn = new FileInputStream(name);
+    public static void loadFromFile(ListDB listDB) throws IOException {
+        FileInputStream fileIn = new FileInputStream("transportDB");
         DataInputStream in = new DataInputStream(fileIn);
         int i = in.readInt();
         while (i > 0) {
@@ -57,6 +58,7 @@ public class FileController {
             try {
                 level = Integer.parseInt(data[1]);
             } catch (NumberFormatException e) {
+                System.out.println("Ошибка чтения разряда!");
             }
             if(data.length<3) {
                 rec.setLevel(level);
@@ -67,6 +69,7 @@ public class FileController {
             try {
                 years_work = Integer.parseInt(data[2]);
             } catch (NumberFormatException e) {
+                System.out.println("Ошибка чтения стажа!");
             }
             if(data.length<3) {
                 rec.setYears_work(years_work);
@@ -77,6 +80,7 @@ public class FileController {
             try {
                 salary = Integer.parseInt(data[3]);
             } catch (NumberFormatException e) {
+                System.out.println("Ошибка чтения зарплаты!");
             }
             rec.setSalary(salary);
             listDB.add(rec);

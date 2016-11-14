@@ -5,9 +5,10 @@ import leti.asd.db.db_list.ListDB;
 import javax.swing.table.AbstractTableModel;
 
 /**
+ * Project transportDB
  * Created by nikolaikobyzev on 07.11.16.
  */
-public class TableModel extends AbstractTableModel {
+class TableModel extends AbstractTableModel {
 
     private static final String[] columns = { "ФИО", "Разряд", "Стаж", "Зарплата" };
 

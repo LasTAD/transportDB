@@ -1,11 +1,10 @@
 package leti.asd.db;
 
-import java.util.ArrayList;
-
 /**
+ * Project transportDB
  * Created by nikolaikobyzev on 14.10.16.
  */
-public class Main {
+class Main {
     public static void main(String[] args) {
         new GUI().setVisible(true);
     }

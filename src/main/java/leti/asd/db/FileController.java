@@ -60,10 +60,7 @@ class FileController {
             } catch (NumberFormatException e) {
                 System.out.println("Ошибка чтения разряда!");
             }
-            if(data.length<3) {
-                rec.setLevel(level);
-                continue;
-            }
+            rec.setLevel(level);
 
             int years_work = 0;
             try {
@@ -71,10 +68,7 @@ class FileController {
             } catch (NumberFormatException e) {
                 System.out.println("Ошибка чтения стажа!");
             }
-            if(data.length<3) {
-                rec.setYears_work(years_work);
-                continue;
-            }
+            rec.setYears_work(years_work);
 
             int salary = 0;
             try {

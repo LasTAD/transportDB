@@ -3,6 +3,7 @@ package leti.asd.db.db_list;
 import java.util.*;
 
 /**
+ * Project transportDB
  * Created by nikolaikobyzev on 15.10.16.
  */
 public class ListDB extends ArrayList<DBrecord>{
@@ -21,7 +22,7 @@ public class ListDB extends ArrayList<DBrecord>{
 
     }
 
-    public int searchRec(Object value, DBRecordField field){
+    public int searchBin(Object value, DBRecordField field){
         switch(field){
             case LEVEL:
                 return searchWrap((int)value, DBRecordField.LEVEL);
@@ -35,34 +36,24 @@ public class ListDB extends ArrayList<DBrecord>{
         return -1;
     }
 
-    //для цифровых полей
     private  int searchWrap(int key, DBRecordField field){
         if (this.size() == 0)
             return -1;
-
-        boolean descendingOrder = this.get(0).getLevel() > this.get(this.size()-1).getLevel();
-        return search(descendingOrder, key, 0, this.size(), field);
+        return search(key, 0, this.size(), field);
     }
 
-    //для строк
     private  int searchWrap(String key){
         if (this.size() == 0)
             return -1;
-
-        boolean descendingOrder = this.get(0).getLevel() > this.get(this.size()-1).getLevel();
-        return search(descendingOrder, key, 0, this.size());
+        return search(key, 0, this.size());
     }
 
-    //для цифровых полей
-    private  int search(boolean descendingOrder, int key, int left, int right, DBRecordField field) {
+    private  int search(int key, int left, int right, DBRecordField field) {
         int mid = left + (right - left) / 2;
 
         if (left >= right)
-            return -(1 + left);
-
-        if (this.get(left).getLevel() == key)
-            return left;
-
+            return -1;
+        
         switch (field) {
             case LEVEL:
                 if (this.get(left).getLevel() == key)
@@ -72,11 +63,11 @@ public class ListDB extends ArrayList<DBrecord>{
                     if (mid == left + 1)
                         return mid;
                     else
-                        return search(descendingOrder, key, left, mid + 1, field);
-                } else if ((this.get(mid).getLevel() > key) ^ descendingOrder)
-                    return search(descendingOrder, key, left, mid, field);
+                        return search(key, left, mid + 1, field);
+                } else if (this.get(mid).getLevel() > key)
+                    return search(key, left, mid, field);
                 else
-                    return search(descendingOrder, key, mid + 1, right, field);
+                    return search(key, mid + 1, right, field);
             case YEARS_WORK:
                 if (this.get(left).getYears_work() == key)
                     return left;
@@ -85,11 +76,11 @@ public class ListDB extends ArrayList<DBrecord>{
                     if (mid == left + 1)
                         return mid;
                     else
-                        return search(descendingOrder, key, left, mid + 1, field);
-                } else if ((this.get(mid).getYears_work() > key) ^ descendingOrder)
-                    return search(descendingOrder, key, left, mid, field);
+                        return search(key, left, mid + 1, field);
+                } else if (this.get(mid).getYears_work() > key)
+                    return search(key, left, mid, field);
                 else
-                    return search(descendingOrder, key, mid + 1, right, field);
+                    return search(key, mid + 1, right, field);
             case SALARY:
                 if (this.get(left).getSalary() == key)
                     return left;
@@ -98,22 +89,21 @@ public class ListDB extends ArrayList<DBrecord>{
                     if (mid == left + 1)
                         return mid;
                     else
-                        return search(descendingOrder, key, left, mid + 1, field);
-                } else if ((this.get(mid).getSalary() > key) ^ descendingOrder)
-                    return search(descendingOrder, key, left, mid, field);
+                        return search(key, left, mid + 1, field);
+                } else if (this.get(mid).getSalary() > key)
+                    return search(key, left, mid, field);
                 else
-                    return search(descendingOrder, key, mid + 1, right, field);
+                    return search(key, mid + 1, right, field);
         }
         return -1;
     }
 
-    //для строк
-    private  int search(boolean descendingOrder, String key, int left, int right){
+    private  int search(String key, int left, int right){
 
         int mid = left + (right - left) / 2;
 
         if (left >= right)
-            return -(1 + left);
+            return -1;
 
         if (key.equals(this.get(left).getFullName()))
             return left;
@@ -125,11 +115,11 @@ public class ListDB extends ArrayList<DBrecord>{
             if (mid == left + 1)
                 return mid;
             else
-                return search(descendingOrder, key, left, mid + 1);
+                return search(key, left, mid + 1);
         }
-        else if ((this.get(mid).getFullName().compareToIgnoreCase(key) == -1) ^ descendingOrder)
-            return search(descendingOrder, key, left, mid);
+        else if (this.get(mid).getFullName().compareTo(key) > 0)
+            return search(key, left, mid);
         else
-            return search(descendingOrder, key, mid + 1, right);
+            return search(key, mid + 1, right);
     }
 }

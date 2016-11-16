@@ -142,7 +142,7 @@ class GUI extends JFrame {
     }
 
     private void searchNextClick() {
-        indexSearch = listDB.searchRec(valueSearch, DBRecordFieldSearch);
+        indexSearch = listDB.searchBin(valueSearch, DBRecordFieldSearch);
         if (indexSearch == -1) {
             JOptionPane.showMessageDialog(this, "Поиск завершен!", "Результаты поиска", JOptionPane.INFORMATION_MESSAGE);
             buttonSearchNext.setEnabled(false);
@@ -159,7 +159,7 @@ class GUI extends JFrame {
         paneLayout.setAutoCreateContainerGaps(true);
 
         JLabel warning1 = new JLabel("<html>Перед поиском необходимо<br>отсортировать соответствующий столбец</html>");
-        JComboBox comboBox1 = new JComboBox(new Object[] { "ФИО", "Разряд", "Стаж", "Зарплата"});
+        JComboBox<Object> comboBox1 = new JComboBox<>(new Object[] { "ФИО", "Разряд", "Стаж", "Зарплата"});
         JTextField textField1 = new JTextField();
 
         paneLayout.setHorizontalGroup(
@@ -190,12 +190,11 @@ class GUI extends JFrame {
                     case 3: DBRecordFieldSearch = DBRecordField.SALARY; break;
                 }
 
-                //valueSearch = DBRecordFieldSearch; // == DBRecordField.LEVEL ? Integer.parseInt(textField1.getText()) : textField1.getText();
                 if(DBRecordFieldSearch == DBRecordField.LEVEL || DBRecordFieldSearch == DBRecordField.YEARS_WORK || DBRecordFieldSearch == DBRecordField.SALARY)
                     valueSearch = Integer.parseInt(textField1.getText());
                 else valueSearch = textField1.getText();
                 try {
-                    indexSearch = listDB.searchRec(valueSearch, DBRecordFieldSearch);
+                    indexSearch = listDB.searchBin(valueSearch, DBRecordFieldSearch);
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(this, "Неверный ввод числа!", "Ошибка ввода", JOptionPane.ERROR_MESSAGE);
                     continue;
@@ -204,6 +203,7 @@ class GUI extends JFrame {
                     JOptionPane.showMessageDialog(this, "Ничего не найдено!", "Результаты поиска", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     buttonSearchNext.setEnabled(true);
+                    System.out.println(indexSearch);
                     table.setRowSelectionInterval(indexSearch, indexSearch);
                 }
             }
